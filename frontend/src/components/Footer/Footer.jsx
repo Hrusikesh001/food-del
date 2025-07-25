@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="footer-content-left">
                 <img src={assets.logo} alt="" />
                 <p>
-                    Tomato. — Delivering fresh flavors right to your doorstep.
+                    FoodTaxi — Delivering fresh flavors right to your doorstep.
                     Your go-to platform for quick, reliable, and tasty food delivery.
                     Experience the joy of hassle-free ordering, anytime, anywhere.
                 </p>
@@ -32,12 +32,12 @@ const Footer = () => {
                  <h2>GET IN TOUCH</h2>
                  <ul>
                     <li>+91-8457856500</li>
-                    <li>contact@tomato.com</li>
+                    <li>contact@foodtaxi.com</li>
                  </ul>
             </div>
         </div>
         <hr />
-        <p className="footer-copyright">Copyright 2025 © Tomato.com - All Right Reserved.</p>
+        <p className="footer-copyright">Copyright 2025 © FoodTaxi.com - All Right Reserved.</p>
     </div>
   )
 }
