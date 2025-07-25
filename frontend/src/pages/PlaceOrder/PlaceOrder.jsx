@@ -28,29 +28,41 @@ const PlaceOrder = () => {
   }
 
   const placeOrder = async (event) => {
-    event.preventDefault();
-    let orderItems = [];
-    food_list.map((item)=>{
-      if (cartItems[item.id]){
-          let itemInfo = item;
-          itemInfo["quantity"] = cartItems[item._id];
-          orderItems.push(itemInfo);
-        }
-    })
-    let orderData = {
-      address:data,
-      items:orderItems,
-      amount:getTotalCartAmount()+2,
-    }
-    let response = await axios.post(url+"/api/order/place",orderData,{headers:{token}});
+  event.preventDefault();
+
+  const orderItems = food_list
+    .filter((item) => cartItems[item._id] > 0)
+    .map((item) => ({
+      _id: item._id,
+      name: item.name,
+      price: item.price,
+      quantity: cartItems[item._id],
+    }));
+
+  const orderData = {
+    address: data,
+    items: orderItems,
+    amount: getTotalCartAmount() + 2,
+  };
+
+  try {
+    const response = await axios.post(
+      url + "/api/order/place",
+      orderData,
+      { headers: { token } }
+    );
     if (response.data.success) {
-      const {session_url} = response.data;
+      const { session_url } = response.data;
       window.location.replace(session_url);
+    } else {
+      alert("Error placing order");
     }
-    else{
-      alert("Error");
-    }
+  } catch (err) {
+    console.error(err);
+    alert("Server error");
   }
+};
+
 
   const navigate = useNavigate();
 
