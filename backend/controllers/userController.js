@@ -1,3 +1,4 @@
+import { sendEmail } from "../services/emailService.js";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
@@ -62,9 +63,26 @@ const registerUser = async (req,res) => {
             password:hashedPassword
         })
 
-        const user = await newUser.save()
-        const token = createToken(user._id)
-        res.json({success:true,token});
+const user = await newUser.save();
+const token = createToken(user._id);
+
+// Send welcome email
+void sendEmail({
+  to: user.email,
+  subject: "Welcome to FoodTaxi!",
+  text: `Hi ${user.name},
+
+Welcome to FoodTaxi! Your account has been created successfully.
+
+You can now explore our menu and order your favourite food.
+
+Thank you for joining FoodTaxi!
+
+Team FoodTaxi`,
+});
+
+res.json({ success: true, token });
+
     } catch (error) {
         console.log(error);
         res.json({success:false,message:"Error"})

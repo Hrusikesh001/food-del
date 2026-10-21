@@ -7,6 +7,7 @@ const orderSchema = new mongoose.Schema({
     address:{type:Object,required:true},
     status:{type:String,default:"Food Processing"},
     date:{type:Date,default:Date.now()},
+    stripeSessionId: {type: String,default: null,},
     payment:{type:Boolean,default:false}
 })
 
