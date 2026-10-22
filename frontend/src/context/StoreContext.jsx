@@ -1,12 +1,19 @@
 
-import React, { createContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import axios from "axios";
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(
+    () => localStorage.getItem("token") || ""
+  );
   const [food_list, setFoodList] = useState([]);
 
   // Search functionality
@@ -77,52 +84,55 @@ const StoreContextProvider = (props) => {
   };
 
   // Fetch food list
-  const fetchFoodList = async () => {
+  const fetchFoodList = useCallback(async () => {
     try {
       const response = await axios.get(`${url}/api/food/list`);
 
-      console.log("Food API response:", response.data);
-
-      // Your API currently returns { success: true, date: [...] }
-      const foods = response.data.date;
+      // Support either spelling if your API uses date or data.
+      const foods = response.data.data ?? response.data.date;
 
       setFoodList(Array.isArray(foods) ? foods : []);
     } catch (error) {
       console.error("Failed to fetch food list:", error);
       setFoodList([]);
     }
-  };
+  }, [url]);
 
   // Load cart from backend
-  const loadCartData = async (userToken) => {
-    try {
-      const response = await axios.post(
-        `${url}/api/cart/get`,
-        {},
-        { headers: { token: userToken } }
-      );
+  const loadCartData = useCallback(
+    async (userToken) => {
+      try {
+        const response = await axios.post(
+          `${url}/api/cart/get`,
+          {},
+          { headers: { token: userToken } }
+        );
 
-      setCartItems(response.data.cartData || {});
-    } catch (error) {
-      console.error("Failed to load cart:", error);
-    }
-  };
-
-  // Initial data loading
-  useEffect(() => {
-    const loadData = async () => {
-      await fetchFoodList();
-
-      const savedToken = localStorage.getItem("token");
-
-      if (savedToken) {
-        setToken(savedToken);
-        await loadCartData(savedToken);
+        if (response.data.success !== false) {
+          setCartItems(response.data.cartData || {});
+        }
+      } catch (error) {
+        console.error("Failed to load cart:", error);
       }
-    };
+    },
+    [url]
+  );
 
-    loadData();
-  }, []);
+  // Fetch food list once
+  useEffect(() => {
+    fetchFoodList();
+  }, [fetchFoodList]);
+
+  // Load cart whenever login state changes
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("token", token);
+      loadCartData(token);
+    } else {
+      localStorage.removeItem("token");
+      setCartItems({});
+    }
+  }, [token, loadCartData]);
 
   const contextValue = {
     food_list,
@@ -134,8 +144,6 @@ const StoreContextProvider = (props) => {
     url,
     token,
     setToken,
-
-    // Expose search state to other components
     searchQuery,
     setSearchQuery,
   };

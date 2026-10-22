@@ -63,3 +63,19 @@
     font-weight: 500;
     cursor: pointer;
 }
+
+
+
+.login-popup-or {
+    text-align: center;
+    margin: -10px 0;
+    color: #808080;
+}
+
+.google-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+}
