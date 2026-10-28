@@ -1,0 +1,170 @@
+
+.tracking-page {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    color: #333;
+}
+
+.tracking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.tracking-header h2 {
+    margin-bottom: 8px;
+}
+
+.tracking-header p {
+    color: #777;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.connection-badge {
+    background: #fff3cd;
+    color: #856404;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.connection-badge.online {
+    background: #d4edda;
+    color: #155724;
+}
+
+.tracking-card {
+    padding: 28px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.current-status {
+    color: tomato;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 12px 0 32px;
+}
+
+.status-timeline {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 30px 0;
+}
+
+.timeline-step {
+    flex: 1;
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+}
+
+.timeline-dot {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    background: white;
+}
+
+.timeline-step.completed {
+    color: #228b22;
+    font-weight: 600;
+}
+
+.timeline-step.completed .timeline-dot {
+    color: white;
+    background: #228b22;
+    border-color: #228b22;
+}
+
+.tracking-details {
+    border-top: 1px solid #eee;
+    padding-top: 18px;
+    margin-top: 24px;
+}
+
+.tracking-details p {
+    margin: 12px 0;
+    overflow-wrap: anywhere;
+}
+
+.live-note {
+    margin-top: 20px;
+    color: #666;
+    font-size: 13px;
+}
+
+.tracking-error {
+    color: #c62828;
+    margin: 20px 0;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 24px;
+    color: tomato;
+    text-decoration: none;
+}
+
+@media (max-width: 600px) {
+    .tracking-page {
+        padding: 14px;
+        margin: 20px auto;
+    }
+
+    .tracking-card {
+        padding: 18px;
+    }
+
+    .status-timeline {
+        gap: 5px;
+    }
+
+    .timeline-step {
+        font-size: 10px;
+        overflow-wrap: anywhere;
+    }
+
+    .timeline-dot {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+
+
+.delivery-map-section {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.delivery-map-section h3 {
+    margin-bottom: 16px;
+}
+
+.delivery-map-section .leaflet-container {
+    width: 100%;
+    height: 400px;
+    min-height: 400px;
+    z-index: 0;
+}
+
+.delivery-map-section .live-note {
+    margin-top: 12px;
+    color: #666;
+    font-size: 13px;
+}

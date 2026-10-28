@@ -1,15 +1,34 @@
-import React from 'react'
-import './Navbar.css'
-  import {assets} from '../../assets/assets'
 
-const Navbar = () => {
+import React from 'react';
+import './Navbar.css';
+import { assets } from '../../assets/assets';
+
+const Navbar = ({ onLogout }) => {
   return (
-    <div className='navbar'>
-      <img className='logo' src={assets.logo} alt="" />
-      <img className='profile' src={assets.profile_image} alt="" />
-      
-    </div>
-  )
-}
+    <div className="navbar">
+      <img
+        className="logo"
+        src={assets.logo}
+        alt="FoodTaxi"
+      />
 
-export default Navbar
+      <div className="navbar-right">
+        <img
+          className="profile"
+          src={assets.profile_image}
+          alt="Admin profile"
+        />
+
+        <button
+          type="button"
+          className="logout-button"
+          onClick={onLogout}
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
